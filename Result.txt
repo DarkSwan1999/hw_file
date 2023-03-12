@@ -1,0 +1,107 @@
+
+Result.txt
+1
+строка № 1 в файле Result.txt : 
+
+recipes.txt
+26
+строка № 1 в файле recipes.txt : Омлет
+строка № 2 в файле recipes.txt : 3
+строка № 3 в файле recipes.txt : Яйцо | 2 | шт
+строка № 4 в файле recipes.txt : Молоко | 100 | мл
+строка № 5 в файле recipes.txt : Помидор | 2 | шт
+строка № 6 в файле recipes.txt : 
+строка № 7 в файле recipes.txt : Утка по-пекински
+строка № 8 в файле recipes.txt : 4
+строка № 9 в файле recipes.txt : Утка | 1 | шт
+строка № 10 в файле recipes.txt : Вода | 2 | л
+строка № 11 в файле recipes.txt : Мед | 3 | ст.л
+строка № 12 в файле recipes.txt : Соевый соус | 60 | мл
+строка № 13 в файле recipes.txt : 
+строка № 14 в файле recipes.txt : Запеченный картофель
+строка № 15 в файле recipes.txt : 3
+строка № 16 в файле recipes.txt : Картофель | 1 | кг
+строка № 17 в файле recipes.txt : Чеснок | 3 | зубч
+строка № 18 в файле recipes.txt : Сыр гауда | 100 | г
+строка № 19 в файле recipes.txt : 
+строка № 20 в файле recipes.txt : Фахитос
+строка № 21 в файле recipes.txt : 5
+строка № 22 в файле recipes.txt : Говядина | 500 | г
+строка № 23 в файле recipes.txt : Перец сладкий | 1 | шт
+строка № 24 в файле recipes.txt : Лаваш | 2 | шт
+строка № 25 в файле recipes.txt : Винный уксус | 1 | ст.л
+строка № 26 в файле recipes.txt : Помидор | 2 | шт
+main.py
+71
+строка № 1 в файле main.py : import os.path
+строка № 2 в файле main.py : from pprint import pprint
+строка № 3 в файле main.py : 
+строка № 4 в файле main.py : 
+строка № 5 в файле main.py : def strings_counting(file:str) -> int:
+строка № 6 в файле main.py :     with open(file, 'r') as f:
+строка № 7 в файле main.py :         return sum(1 for _ in f)
+строка № 8 в файле main.py : 
+строка № 9 в файле main.py : 
+строка № 10 в файле main.py : def reading_of_catalog(file_name: str) -> dict:
+строка № 11 в файле main.py :     with open(file_name) as file:
+строка № 12 в файле main.py :         dict = {}
+строка № 13 в файле main.py :         for line in file:
+строка № 14 в файле main.py :             dish_name = line.strip()
+строка № 15 в файле main.py :             dict[dish_name] = []
+строка № 16 в файле main.py :             for j in range(int(file.readline())):
+строка № 17 в файле main.py :                 consist = file.readline().split(' | ')
+строка № 18 в файле main.py :                 dict[dish_name].append({'ingredient_name': consist[0],
+строка № 19 в файле main.py :                                         'quantity': int(consist[1]),
+строка № 20 в файле main.py :                                         'measure': consist[2].strip()})
+строка № 21 в файле main.py :             file.readline()
+строка № 22 в файле main.py :     return dict
+строка № 23 в файле main.py : 
+строка № 24 в файле main.py : 
+строка № 25 в файле main.py : def list_of_stores_with_ingredients(dishes: list, person_count: int, cook_book: dict) -> dict:
+строка № 26 в файле main.py :     result = {}
+строка № 27 в файле main.py :     for dish in dishes:
+строка № 28 в файле main.py :         if dish in cook_book:
+строка № 29 в файле main.py :             for consist in cook_book[dish]:
+строка № 30 в файле main.py :                 if consist['ingredient_name'] in result:
+строка № 31 в файле main.py :                     result[consist['ingredient_name']]['quantity'] += consist['quantity'] * person_count
+строка № 32 в файле main.py :                 else:
+строка № 33 в файле main.py :                     result[consist['ingredient_name']] = {'measure': consist['measure'],
+строка № 34 в файле main.py :                                                        'quantity': (consist['quantity'] * person_count)}
+строка № 35 в файле main.py :         else:
+строка № 36 в файле main.py :             print(f'Р‘Р»СЋРґР° "{dish}" РЅРµС‚ РІ РєРЅРёРіРµ СЂРµС†РµРїС‚РѕРІ')
+строка № 37 в файле main.py :     return result
+строка № 38 в файле main.py : 
+строка № 39 в файле main.py : 
+строка № 40 в файле main.py : 
+строка № 41 в файле main.py : def rewriting(file_for_writing: str, base_path, location):
+строка № 42 в файле main.py :     files = []
+строка № 43 в файле main.py :     for i in list(os.listdir(os.path.join(base_path, location))):
+строка № 44 в файле main.py :         files.append([strings_counting(os.path.join(base_path, location, i)), os.path.join(base_path, location, i), i])
+строка № 45 в файле main.py :     for file_from_list in sorted(files):
+строка № 46 в файле main.py :         opening_files = open(file_for_writing, 'a')
+строка № 47 в файле main.py :         opening_files.write(f'{file_from_list[2]}\n')
+строка № 48 в файле main.py :         opening_files.write(f'{file_from_list[0]}\n')
+строка № 49 в файле main.py :         with open(file_from_list[1], 'r') as file:
+строка № 50 в файле main.py :             counting = 1
+строка № 51 в файле main.py :             for line in file:
+строка № 52 в файле main.py :                 opening_files.write(f'СЃС‚СЂРѕРєР° в„– {counting} РІ С„Р°Р№Р»Рµ {file_from_list[2]} : {line}')
+строка № 53 в файле main.py :                 counting += 1
+строка № 54 в файле main.py :         opening_files.write(f'\n')
+строка № 55 в файле main.py :         opening_files.close()
+строка № 56 в файле main.py : 
+строка № 57 в файле main.py : if __name__ == '__main__':
+строка № 58 в файле main.py :     file_with_recipes = os.path.abspath(r'\Users\ew345\Desktop\hw\recipes.txt')
+строка № 59 в файле main.py :     dishes = ['РћРјР»РµС‚', 'Р¤Р°С…РёС‚РѕСЃ', 'РЎРµР»СЊРґСЊ РїРѕРґ С€СѓР±РѕР№', 'Р—Р°РїРµС‡РµРЅРЅС‹Р№ РєР°СЂС‚РѕС„РµР»СЊ']
+строка № 60 в файле main.py :     pprint(reading_of_catalog(file_with_recipes))
+строка № 61 в файле main.py :     print(list_of_stores_with_ingredients(dishes, 2, reading_of_catalog(file_with_recipes)))
+строка № 62 в файле main.py :     file_for_writing = os.path.abspath(r'\Users\ew345\Desktop\hw\Result.txt')
+строка № 63 в файле main.py :     base_path = os.getcwd()
+строка № 64 в файле main.py :     location = os.path.abspath(r'\Users\ew345\Desktop\hw\ ')
+строка № 65 в файле main.py :     rewriting(file_for_writing, base_path, location)
+строка № 66 в файле main.py : 
+строка № 67 в файле main.py : 
+строка № 68 в файле main.py : 
+строка № 69 в файле main.py : 
+строка № 70 в файле main.py : 
+строка № 71 в файле main.py : 
+
